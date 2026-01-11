@@ -11,7 +11,8 @@ El objetivo es evaluar y comparar el rendimiento de diferentes soluciones de pro
 Para validar la infraestructura, se han realizado pruebas de rendimiento y seguridad cuyos resultados se detallan a continuación:
 
 ### ⚡ Benchmarking de Rendimiento (RPS)
-Se comparó la capacidad de respuesta de los proxies inversos bajo carga extrema. En condiciones de caché optimizada, **Apache Traffic Server (ATS)** demostró una superioridad técnica notable.
+* [cite_start]**Nginx y HAProxy (Modo Pass-through):** Operando como balanceadores de carga y terminadores SSL, ambos mostraron un rendimiento sólido y consistente[cite: 6]. [cite_start]Su velocidad en este escenario está vinculada a la capacidad de respuesta de los servidores backend en Python Flask, ya que actúan como intermediarios directos del tráfico[cite: 2, 5].
+* [cite_start]**Apache Traffic Server (ATS) (Modo Caché):** Alcanzó picos superiores a los **10,000 RPS** al operar con **caché caliente (HIT)**[cite: 6]. [cite_start]Este resultado resalta la eficiencia extrema de ATS para servir contenido estático directamente desde memoria RAM, eliminando el cuello de botella que supone la latencia de red hacia el servidor de origen[cite: 6].
 
 ![Resultados del Benchmark](img/benchmark_graph.png)
 *Comparativa de Peticiones por Segundo (RPS) entre ATS, HAProxy y Nginx.*
@@ -34,6 +35,7 @@ Demostración del sistema de filtrado granular. Se muestra el estado original de
 Menú interactivo desarrollado en Bash para facilitar la administración de reglas de firewall y monitoreo de logs en tiempo real.
 
 ![Menú de Gestión](img/squid_management_menu.png)
+
 *Herramienta interactiva para la administración de la infraestructura.*
 
 ## 📂 Estructura del Repositorio
