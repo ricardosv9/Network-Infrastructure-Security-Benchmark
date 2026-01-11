@@ -16,7 +16,6 @@ El objetivo es evaluar y comparar el rendimiento de diferentes soluciones de pro
 ## 🛠️ Requisitos e Instalación
 Se requiere un entorno Linux con **Python3** y **pip** instalados.
 
-bash
 # 1. Instalar la dependencia para los servidores backend
 sudo pip install Flask
 
