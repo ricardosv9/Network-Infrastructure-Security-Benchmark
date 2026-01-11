@@ -11,7 +11,7 @@ El objetivo es evaluar y comparar el rendimiento de diferentes soluciones de pro
 
 **`/backend`**: Servidores Flask en Python que actúan como origen y validan la gestión de caché.
 
-* **`/docs`**: Documentación técnica detallada y memoria del proyecto .
+**`/docs`**: Documentación técnica detallada y memoria del proyecto .
 
 ## 🛠️ Requisitos e Instalación
 Se requiere un entorno Linux con **Python3** y **pip** instalados.
