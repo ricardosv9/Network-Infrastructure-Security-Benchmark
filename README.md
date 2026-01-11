@@ -6,7 +6,7 @@ Estudio comparativo de rendimiento de Proxies Inversos (Nginx, HAProxy, ATS) e i
 Este repositorio contiene el desarrollo y análisis de una infraestructura de red avanzada, centrada en la implementación de Proxies Inversos con terminación SSL, balanceo de carga, caché y seguridad perimetral mediante inspección TLS.
 
 ## 🚀 Descripción del Proyecto
-El objetivo es evaluar y comparar el rendimiento de diferentes soluciones de proxying (**Nginx, HAProxy, Apache Traffic Server**) y asegurar el tráfico mediante **Squid (SSL-Bump)**El proyecto incluye la automatización completa del despliegue y un set de pruebas de benchmarking para medir Peticiones por Segundo (RPS).
+El objetivo es evaluar y comparar el rendimiento de diferentes soluciones de proxying (**Nginx, HAProxy, Apache Traffic Server**) y asegurar el tráfico mediante **Squid (SSL-Bump)** El proyecto incluye la automatización completa del despliegue y un set de pruebas de benchmarking para medir Peticiones por Segundo (RPS).
 
 ## 📂 Estructura del Repositorio
 **`/scripts`**: Contiene los scripts de automatización en Bash para instalación, configuración y ejecución del benchmark.
