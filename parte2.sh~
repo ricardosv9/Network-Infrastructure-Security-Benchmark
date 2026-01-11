@@ -1,0 +1,119 @@
+#!/bin/bash
+set -e
+
+# --- Rutas de Scripts de Configuración (AJUSTADAS) ---
+HAPROXY_SCRIPT="/configurar_haproxy_TLS.sh" 
+NGINX_SCRIPT="/configurar_nginx_TLS.sh" 
+ATS_SCRIPT="/configurar_atsTLS.sh" 
+
+
+# --- Parámetros del Benchmark ---
+NUM_PETICIONES=1000
+CONCURRENCIA=100
+AB_COMANDO="ab -n ${NUM_PETICIONES} -c ${CONCURRENCIA} -k https://127.0.0.1/"
+NGINX_PATH="/usr/local/nginx/sbin/nginx"
+NGINX_STOP="sudo $NGINX_PATH -s stop"
+
+# --- Colores ---
+GREEN="\033[0;32m"
+YELLOW="\033[1;33m"
+RED="\033[0;31m"
+NC="\033[0m"
+
+# --- Funciones ---
+
+# Ejecuta un script, verifica errores y comprueba el proceso si es Nginx 
+run_and_check() {
+    local SCRIPT_NAME=$1
+    echo -e "${YELLOW}Configurando: $SCRIPT_NAME...${NC}"
+    
+    # Ejecutar la configuración del proxy
+    if ! sudo bash "$SCRIPT_NAME" > /dev/null 2>&1; then
+        echo -e "${RED} ERROR FATAL al configurar $SCRIPT_NAME. Comprueba los logs.${NC}"
+        exit 1
+    fi
+    
+    # ----------------------------------------------------
+    #  VERIFICACIÓN: Solo para Nginx 
+    #  Comprobamos que el proceso se haya levantado correctamente.
+    # ----------------------------------------------------
+    if [[ "$SCRIPT_NAME" == *nginx_TLS.sh ]]; then
+        # Nginx  tarda un instante en iniciar.
+        sleep 1 
+        if ! pgrep -f "$NGINX_PATH" > /dev/null; then
+            echo -e "${RED} ERROR: Nginx (Fuente) falló al mantenerse activo después de la configuración. Comprueba los permisos de logs o el archivo nginx.conf.${NC}"
+            exit 1
+        fi
+    fi
+}
+
+# Ejecuta la prueba de benchmark y extrae RPS
+run_benchmark() {
+    local PROXY_NAME=$1
+    local SCRIPT_PATH=$2
+    
+    # 1. Limpieza y configuración
+    # Detener todos los servicios que puedan estar usando el puerto 443
+    sudo systemctl stop haproxy 2>/dev/null || true
+    sudo systemctl stop nginx 2>/dev/null || true
+    sudo systemctl stop trafficserver 2>/dev/null || true
+    $NGINX_STOP 2>/dev/null || true
+    
+    # Ejecutar la configuración del proxy actual y verificar
+    run_and_check "$SCRIPT_PATH"
+    
+    # Aumentamos el tiempo de espera a 5s para evitar el error de timeout/puerto 443
+    sleep 5 
+
+    # 2. Lanzamos el benchmark
+    echo "Lanzando prueba de carga contra $PROXY_NAME..."
+    local OUTPUT=$($AB_COMANDO 2>&1)
+    
+    # 3. Extraemos el número de "Requests per second:" (Campo 4)
+    local RPS=$(echo "$OUTPUT" | grep "Requests per second:" | tr -d '[:cntrl:]' | awk '{print $4}')
+
+    if [ -z "$RPS" ]; then
+        echo -e "${RED}⚠️ Error: No se pudo extraer el RPS para $PROXY_NAME. Saliendo..."
+        echo "SALIDA COMPLETA DE AB: $OUTPUT" 
+        exit 1
+    fi
+    echo "$RPS"
+}
+
+# =================================================================================
+# DEMOSTRACIÓN DE RENDIMIENTO
+# =================================================================================
+
+echo -e "\n${YELLOW}--- Iniciando Comparativa de Rendimiento TLS (Parte B) ---${NC}"
+
+# PRUEBA 1: HAPROXY
+HAPROXY_RPS=$(run_benchmark "HAProxy" "$HAPROXY_SCRIPT")
+
+# PRUEBA 2: NGINX (FUENTE)
+NGINX_RPS=$(run_benchmark "Nginx (Fuente)" "$NGINX_SCRIPT")
+
+# PRUEBA 3: APACHE TRAFFIC SERVER (ATS)
+ATS_RPS=$(run_benchmark "ATS (Traffic Server)" "$ATS_SCRIPT") 
+
+# =================================================================================
+# RESULTADOS FINALES
+# =================================================================================
+
+echo -e "\n${GREEN}--- CONCLUSIONES Y RESULTADOS DEL BENCHMARK ---${NC}"
+
+# Limpieza final de servicios
+sudo systemctl stop haproxy 2>/dev/null || true
+sudo systemctl stop nginx 2>/dev/null || true
+sudo systemctl stop trafficserver 2>/dev/null || true
+$NGINX_STOP 2>/dev/null || true
+
+
+echo "================================================="
+echo "  RESULTADOS DEL ANÁLISIS DE TLS"
+echo "  (RPS: Peticiones por Segundo)"
+echo "================================================="
+echo -e "HAProxy:\t\t\t${GREEN}${HAPROXY_RPS}${NC} pet/seg"
+echo -e "Nginx:\t\t${GREEN}${NGINX_RPS}${NC} pet/seg"
+echo -e "ATS (Traffic Server):\t${GREEN}${ATS_RPS}${NC} pet/seg"
+echo "================================================="
+echo -e "\n--- DEMOSTRACIÓN FINALIZADA ---"
