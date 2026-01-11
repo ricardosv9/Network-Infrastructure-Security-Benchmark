@@ -33,7 +33,7 @@ Servidor 1 (Puerto 8001): python3 ./backend/server1.py
 
 Servidor 2 (Puerto 8002): python3 ./backend/server2.py 
 
-2. Configuración de Seguridad e Infraestructura
+1. Configuración de Seguridad e Infraestructura
    
 Ejecute los scripts en el siguiente orden según su escenario de prueba:
 
@@ -48,7 +48,7 @@ Configurar ATS: sudo ./scripts/configurar_atsTLS.sh
 Seguridad SSL-Bump (Squid): sudo ./scripts/squid_ssl.sh 
 
 
-3. Ejecución de Benchmarks (Escenario de Rendimiento)
+2. Ejecución de Benchmarks (Escenario de Rendimiento)
    
 Para iniciar la comparativa de eficiencia y métricas de RPS:
 
@@ -58,8 +58,6 @@ sudo ./scripts/parte2.sh
    
 
 Filtrado de Clientes (Escenario 1): sudo ./scripts/bloqueo3.sh 
-
-
 
 Reportes de Tráfico (SARG): sudo ./scripts/instalar_sarg.sh 
 
