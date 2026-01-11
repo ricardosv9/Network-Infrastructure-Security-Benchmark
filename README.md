@@ -1,8 +1,6 @@
 # Network-Infrastructure-Security-Benchmark
 Estudio comparativo de rendimiento de Proxies Inversos (Nginx, HAProxy, ATS) e implementación de Inspección TLS (SSL-Bump) mediante Squid. Incluye automatización de despliegue en Bash, microservicios en Python Flask y benchmarking de RPS.
 
-# Network Infrastructure & Security Benchmark
-
 Este repositorio contiene el desarrollo y análisis de una infraestructura de red avanzada, centrada en la implementación de Proxies Inversos con terminación SSL, balanceo de carga, caché y seguridad perimetral mediante inspección TLS.
 
 ## 🚀 Descripción del Proyecto
