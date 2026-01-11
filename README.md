@@ -8,7 +8,9 @@ El objetivo es evaluar y comparar el rendimiento de diferentes soluciones de pro
 
 ## 📂 Estructura del Repositorio
 **`/scripts`**: Contiene los scripts de automatización en Bash para instalación, configuración y ejecución del benchmark.
+
 **`/backend`**: Servidores Flask en Python que actúan como origen y validan la gestión de caché.
+
 * **`/docs`**: Documentación técnica detallada y memoria del proyecto .
 
 ## 🛠️ Requisitos e Instalación
