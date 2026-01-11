@@ -14,7 +14,7 @@ El objetivo es evaluar y comparar el rendimiento de diferentes soluciones de pro
 * **`/docs`**: Documentación técnica detallada y memoria del proyecto .
 
 ## 🛠️ Requisitos e Instalación
-[cite_start]Se requiere un entorno Linux con **Python3** y **pip** instalados.
+Se requiere un entorno Linux con **Python3** y **pip** instalados.
 
 bash
 # 1. Instalar la dependencia para los servidores backend
