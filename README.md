@@ -17,7 +17,7 @@ El objetivo es evaluar y comparar el rendimiento de diferentes soluciones de pro
 Se requiere un entorno Linux con **Python3** y **pip** instalados.
 
 # 1. Instalar la dependencia para los servidores backend
-sudo pip install Flask
+sudo apt install python3-flask
 
 # 2. Dar permisos de ejecución a todos los scripts
 sudo chmod +x ./scripts/*.sh
