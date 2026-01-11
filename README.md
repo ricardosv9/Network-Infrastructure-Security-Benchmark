@@ -3,18 +3,18 @@ Estudio comparativo de rendimiento de Proxies Inversos (Nginx, HAProxy, ATS) e i
 
 # Network Infrastructure & Security Benchmark
 
-[cite_start]Este repositorio contiene el desarrollo y análisis de una infraestructura de red avanzada, centrada en la implementación de Proxies Inversos con terminación SSL, balanceo de carga, caché y seguridad perimetral mediante inspección TLS.
+Este repositorio contiene el desarrollo y análisis de una infraestructura de red avanzada, centrada en la implementación de Proxies Inversos con terminación SSL, balanceo de carga, caché y seguridad perimetral mediante inspección TLS.
 
 ## 🚀 Descripción del Proyecto
-[cite_start]El objetivo es evaluar y comparar el rendimiento de diferentes soluciones de proxying (**Nginx, HAProxy, Apache Traffic Server**) y asegurar el tráfico mediante **Squid (SSL-Bump)**[cite: 6, 7]. [cite_start]El proyecto incluye la automatización completa del despliegue y un set de pruebas de benchmarking para medir Peticiones por Segundo (RPS).
+El objetivo es evaluar y comparar el rendimiento de diferentes soluciones de proxying (**Nginx, HAProxy, Apache Traffic Server**) y asegurar el tráfico mediante **Squid (SSL-Bump)**El proyecto incluye la automatización completa del despliegue y un set de pruebas de benchmarking para medir Peticiones por Segundo (RPS).
 
 ## 📂 Estructura del Repositorio
-* [cite_start]**`/scripts`**: Contiene los scripts de automatización en Bash para instalación, configuración y ejecución del benchmark.
-* [cite_start]**`/backend`**: Servidores Flask en Python que actúan como origen y validan la gestión de caché[cite: 2, 5].
-* **`/docs`**: Documentación técnica detallada y memoria del proyecto (122 páginas).
+**`/scripts`**: Contiene los scripts de automatización en Bash para instalación, configuración y ejecución del benchmark.
+**`/backend`**: Servidores Flask en Python que actúan como origen y validan la gestión de caché.
+* **`/docs`**: Documentación técnica detallada y memoria del proyecto .
 
 ## 🛠️ Requisitos e Instalación
-[cite_start]Se requiere un entorno Linux con **Python3** y **pip** instalados[cite: 3].
+[cite_start]Se requiere un entorno Linux con **Python3** y **pip** instalados.
 
 bash
 # 1. Instalar la dependencia para los servidores backend
