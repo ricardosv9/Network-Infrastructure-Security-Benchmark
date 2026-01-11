@@ -6,6 +6,36 @@ Este repositorio contiene el desarrollo y análisis de una infraestructura de re
 ## 🚀 Descripción del Proyecto
 El objetivo es evaluar y comparar el rendimiento de diferentes soluciones de proxying (**Nginx, HAProxy, Apache Traffic Server**) y asegurar el tráfico mediante **Squid (SSL-Bump)** El proyecto incluye la automatización completa del despliegue y un set de pruebas de benchmarking para medir Peticiones por Segundo (RPS).
 
+## 📊 Evidencias y Resultados
+
+Para validar la infraestructura, se han realizado pruebas de rendimiento y seguridad cuyos resultados se detallan a continuación:
+
+### ⚡ Benchmarking de Rendimiento (RPS)
+Se comparó la capacidad de respuesta de los proxies inversos bajo carga extrema. En condiciones de caché optimizada, **Apache Traffic Server (ATS)** demostró una superioridad técnica notable.
+
+![Resultados del Benchmark](img/benchmark_graph.png)
+*Comparativa de Peticiones por Segundo (RPS) entre ATS, HAProxy y Nginx.*
+
+### 🛡️ Inspección de Tráfico y Seguridad (SSL-Bump)
+Implementación exitosa de interceptación TLS mediante **Squid**, permitiendo la visibilidad del contenido cifrado para auditoría y filtrado.
+
+![Prueba SSL-Bump](img/ssl_intercept_proof.png)
+*Captura del contenido interceptado de una URL HTTPS mediante la CA propia.*
+
+### 🚫 Control de Acceso y Filtrado Perimetral
+Demostración del sistema de filtrado granular. Se muestra el estado original del sitio y el bloqueo efectivo aplicado por el proxy.
+
+| Estado Original | Acceso Denegado |
+| :---: | :---: |
+| ![Sitio Original](img/target_site_original.png) | ![Acceso Bloqueado](img/access_denied_evidence.png) |
+| *Acceso normal al sitio objetivo.* | *Bloqueo perimetral mediante Squid.* |
+
+### 🛠️ Interfaz de Gestión
+Menú interactivo desarrollado en Bash para facilitar la administración de reglas de firewall y monitoreo de logs en tiempo real.
+
+![Menú de Gestión](img/squid_management_menu.png)
+*Herramienta interactiva para la administración de la infraestructura.*
+
 ## 📂 Estructura del Repositorio
 **`/scripts`**: Contiene los scripts de automatización en Bash para instalación, configuración y ejecución del benchmark.
 
