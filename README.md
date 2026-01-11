@@ -24,37 +24,52 @@ sudo pip install Flask
 sudo chmod +x ./scripts/*.sh
 
 🚦 Guía de Ejecución
+
 0. Preparación de Servidores Backend
+   
 El escenario utiliza dos servidores backend en Python (Flask) que responden en HTTP e incluyen cabeceras 'Cache-Control'. Deben ejecutarse en terminales separadas para monitorizar sus logs:
+
 Servidor 1 (Puerto 8001): python3 ./backend/server1.py 
+
 Servidor 2 (Puerto 8002): python3 ./backend/server2.py 
 
-1. Configuración de Seguridad e Infraestructura
+2. Configuración de Seguridad e Infraestructura
+   
 Ejecute los scripts en el siguiente orden según su escenario de prueba:
+
 Generar Certificados Proxies: sudo ./scripts/generar_certificado.sh 
+
 Instalación Nginx (Código Fuente): sudo ./scripts/compilar_nginx.sh y sudo ./scripts/configurar_nginx_TLS.sh 
+
 Configurar HAProxy: sudo ./scripts/configurar_haproxy_TLS.sh 
+
 Configurar ATS: sudo ./scripts/configurar_atsTLS.sh 
+
 Seguridad SSL-Bump (Squid): sudo ./scripts/squid_ssl.sh 
 
-2. Ejecución de Benchmarks (Escenario de Rendimiento)
+
+3. Ejecución de Benchmarks (Escenario de Rendimiento)
+   
 Para iniciar la comparativa de eficiencia y métricas de RPS:
 
-Bash
-
 sudo ./scripts/parte2.sh
+
 3. Gestión de Bloqueos y Auditoría
+   
 
 Filtrado de Clientes (Escenario 1): sudo ./scripts/bloqueo3.sh 
 
 
+
 Reportes de Tráfico (SARG): sudo ./scripts/instalar_sarg.sh 
 
+
 🧹 Desinstalación
+
 Para limpiar el entorno y eliminar todas las configuraciones aplicadas:
 
-Bash
 sudo ./scripts/desinstalar_todo.sh
 
 Autor: Ricardo Sanabria Vega
+
 Fecha: Diciembre 2025
